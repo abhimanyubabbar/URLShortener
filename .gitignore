@@ -1,2 +1,4 @@
 .idea/*
 flask/
+*/__pycache__/*
+
