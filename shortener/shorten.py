@@ -50,20 +50,20 @@ class UrlShortener:
         print('Location: ' + loc)
         return self.map[loc]
 
-    def _decode(self, string, alphabet=ALPHABET):
+    def _decode(self, shortenedUrl, alphabet=ALPHABET):
         """
         Decoded the encoded string to the number.
-        :param string:
-        :param alphabet:
+        :param shortenedUrl: encoded string
+        :param alphabet: decoding base
         :return:
         """
         base = len(alphabet)
-        strlen = len(string)
-        num = 0
+        strlen = len(shortenedUrl)
+        result = 0
 
-        idx = 0
-        for char in string:
-            power = (strlen - (idx + 1))
-            num += alphabet.index(char) * (base ** power)
-            idx += 1
-        return num
+        loc = 0
+        for char in shortenedUrl:
+            power = (strlen - (loc + 1))
+            result += alphabet.index(char) * (base ** power)
+            loc += 1
+        return result
