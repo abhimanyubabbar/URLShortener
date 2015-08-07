@@ -5,7 +5,7 @@
 (function(){
 
     angular.module('shortener')
-        .service('ShortenerService', ['$log', ShortenerService]);
+        .service('ShortenerService', ['$log','$q', '$http', ShortenerService]);
 
 
     /**
@@ -13,10 +13,14 @@
      * url shortening service.
      *
      * @param $log
+     * @param $q
+     * @param $http
+     *
      * @constructor
      */
-    function ShortenerService($log){
+    function ShortenerService($log, $q, $http){
 
+        $log.debug('Shortener Service booted up');
 
         return {
             encode: encode
@@ -30,7 +34,8 @@
             return $http({
                 method:'POST',
                 url:'/encode',
-                data: obj
+                data: obj,
+                headers: {'Content-Type': 'application/json'}
             })
                 .then(httpSuccess)
                 .catch(httpError)
