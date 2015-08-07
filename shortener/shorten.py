@@ -19,7 +19,7 @@ class UrlShortener:
         """
         print(url)
         self.map[len(self.map)] = url
-        return self._encode(len(self.map))
+        return self._encode(len(self.map)-1)
 
     def _encode(self, num, alphabet=ALPHABET):
         """
@@ -47,7 +47,7 @@ class UrlShortener:
         print('Call to get original url for shortened url:' + shortenedUrl)
         loc = self._decode(shortenedUrl)
 
-        print('Location: ' + loc)
+        print('Location: ' + str(loc))
         return self.map[loc]
 
     def _decode(self, shortenedUrl, alphabet=ALPHABET):
