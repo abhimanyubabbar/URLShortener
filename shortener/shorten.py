@@ -23,7 +23,7 @@ class UrlShortener:
 
     def _encode(self, num, alphabet=ALPHABET):
         """
-        Main method performing the encoding the url in the shortened url.
+        Main method performing the encoding the url to the shortened url.
         :param num: location of url in the map.
         :return: encoded string
         """
