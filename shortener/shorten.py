@@ -3,7 +3,7 @@ __author__ = 'babbarshaer'
 
 class UrlShortener:
     """
-    Based on the url provided, create a shortened string and vice versa.
+    Original Url => Shortened Url | Shortened Url => Original Url
     """
 
     ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -45,10 +45,15 @@ class UrlShortener:
         :return: originalUrl
         """
         print('Call to get original url for shortened url:' + shortenedUrl)
-        loc = self._decode(shortenedUrl)
 
+        loc = self._decode(shortenedUrl)
         print('Location: ' + str(loc))
-        return self.map[loc]
+
+        result = ''
+        if loc < len(self.map):
+            result = self.map[loc]
+
+        return result
 
     def _decode(self, shortenedUrl, alphabet=ALPHABET):
         """

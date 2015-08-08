@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify, redirect
+from flask import Flask, jsonify, redirect, abort
 from flask import request
 from shortener.shorten import UrlShortener
 
@@ -26,6 +26,10 @@ def encode():
 def decode(encoded):
     print('Received a call to decode string : ' + encoded)
     originalUrl = shortener.originalUrl(encoded)
+
+    if originalUrl == '':
+        return abort(404)
+
     print("Original Url:" + originalUrl)
     return redirect(originalUrl, code=301)
 

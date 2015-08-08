@@ -18,6 +18,7 @@ class TestShorten(unittest.TestCase):
     def test_shortenUrl(self):
 
         print('Testing first encode')
+
         url = 'www.facebook.com'
         result = TestShorten.shortener.shortenUrl(url)
         self.assertEqual(result, '0', "First Encode")
@@ -25,11 +26,20 @@ class TestShorten(unittest.TestCase):
     def test_originalUrl(self):
 
         print('Testing the process of de shortening url')
+
         url = 'https://github.com/babbarshaer'
         shortenedUrl = TestShorten.shortener.shortenUrl(url)
-        originalUrl = TestShorten.shortener.originalUrl(shortenedUrl)
 
+        originalUrl = TestShorten.shortener.originalUrl(shortenedUrl)
         self.assertEqual(url, originalUrl, 'Comparing de-shortened with original')
+
+    def test_unknownUrl(self):
+
+        print('Testing unknown url')
+        shortenedUrl = '0'
+
+        result = TestShorten.shortener.originalUrl(shortenedUrl)
+        self.assertEqual('', result, "Unknown Url Test")
 
 
 if __name__ == '__main__':
