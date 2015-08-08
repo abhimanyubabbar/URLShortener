@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!venv/bin/python
 from flask import Flask, jsonify, redirect, abort
 from flask import request
 from shortener.shorten import UrlShortener
