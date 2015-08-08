@@ -3,7 +3,7 @@ __author__ = 'babbarshaer'
 
 class UrlShortener:
     """
-    Based on the url provided, create a shortened string.
+    Based on the url provided, create a shortened string and vice versa.
     """
 
     ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
