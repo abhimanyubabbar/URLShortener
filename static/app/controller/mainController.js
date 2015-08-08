@@ -40,7 +40,7 @@
                         $log.debug("Url shortened to: " + angular.toJson(data));
 
                         self.encodedUrl = "http://" + $location.host()
-                            + ":" + $location.port()
+                            //+ ":" + $location.port()
                             + "/" + data.url;
 
                         $log.debug(self.encodedUrl);
