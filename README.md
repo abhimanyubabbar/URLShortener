@@ -9,7 +9,7 @@ Let's shorten the world. Shortly is a url shortening service.
 ### Execution Steps
 
 1. Install `virtualenv` and `Flask` for the project. Steps for installing it are provided in the [link](http://flask.pocoo.org/docs/0.10/installation/).
-2. Create a virtual environment by executing `virtualenv venv` in the project root.
+2. Create a virtual environment by executing `virtualenv -p /usr/bin/python3 venv` in the project root. This will enable installing the dependencies in python3 environment.
 3. Activate the profile `source venv/bin/activate`.
 4. Install Flask and Dependencies provided in the requirements folder. `pip install -r requirements.txt --allow-all-external`
 5. Make **server.py** file executable by changing permission. 
