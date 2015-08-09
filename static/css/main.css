@@ -66,3 +66,8 @@ body {
     border-radius: 5px;
     border: solid 2px #843534;
 }
+
+.errorWrapper{
+    background: white;
+    border-radius: 5px;
+}

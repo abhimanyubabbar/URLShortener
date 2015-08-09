@@ -26,8 +26,8 @@
             <h1 class="text-center sbl">Shorten Your Links</h1>
 
             <form class="form-inline sbl" ng-submit="mainController.encode()" name="shortenerForm" novalidate>
-                <div class="input-group col-md-6 col-md-offset-3" id="custom-search-input">
-                    <input type="url" class="form-control input-lg" placeholder="Enter Link " required ng-model="mainController.data.url"/>
+                <div class="input-group col-xs-6 col-xs-offset-3" id="custom-search-input">
+                    <input type="url" class="form-control input-lg" placeholder="Enter Link " required ng-model="mainController.data.url" name="longurl"/>
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-lg" type="submit">
                             <i class="glyphicon glyphicon-upload"></i>
@@ -36,12 +36,18 @@
                 </div>
             </form>
 
+            <!-- Validation Error -->
+            <div class="col-xs-6 col-xs-offset-3 errorWrapper mbl text-center" ng-show="shortenerForm.$submitted && shortenerForm.longurl.$invalid">
+<!--                <p class="text-center"></p>-->
+                <label class="text-danger" style="font-size: 16px">Invalid url format, should start with http:// </label>
+            </div>
+
         </div>
     </div>
 
     <!-- Result Section. -->
     <div class="row mbl" ng-show="(mainController.encodedUrl)" style="background: white">
-        <div class="col-md-6 col-md-offset-3 resultSection">
+        <div class="col-xs-6 col-xs-offset-3 resultSection">
             <h3 class="text-center">Result: <a target="_blank" ng-href="{{ mainController.encodedUrl }}">{{ mainController.encodedUrl }}</a> </h3>
         </div>
     </div>

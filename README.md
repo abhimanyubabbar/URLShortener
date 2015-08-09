@@ -1,12 +1,12 @@
 # Shortly.ly
 Let's shorten the world. Shortly is a url shortening service.
 
-# Functionality
+### Functionality
 
 1. Given a long url => create a short url.
 2. Given the short url => locate long url and redirect user to the page.
 
-# Execution Steps
+### Execution Steps
 
 1. Install `virtualenv` and `Flask` for the project. Steps for installing it are provided in the [link](http://flask.pocoo.org/docs/0.10/installation/).
 2. Create a virtual environment by executing `virtualenv venv` in the project root.
@@ -18,7 +18,7 @@ Let's shorten the world. Shortly is a url shortening service.
 8. Enjoy **shortly.ly**.
 
 
-# Test Execution Steps
+### Test Execution Steps
 
 1. Go to the root folder of the project.
 2. Execute the command `python -m unittest discover test/ *_test.py` to run tests.
