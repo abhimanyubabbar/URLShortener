@@ -38,15 +38,15 @@ class UrlShortener:
         arr.reverse()
         return ''.join(arr)
 
-    def originalUrl(self, shortenedUrl):
+    def originalUrl(self, shortened_url):
         """
         Get the original url stored based on the shortened url provided.
-        :param shortenedUrl: shortUrl
+        :param shortened_url: shortUrl
         :return: originalUrl
         """
-        print('Call to get original url for shortened url:' + shortenedUrl)
+        print('Call to get original url for shortened url:' + shortened_url)
 
-        loc = self._decode(shortenedUrl)
+        loc = self._decode(shortened_url)
         print('Location: ' + str(loc))
 
         result = ''
@@ -55,19 +55,19 @@ class UrlShortener:
 
         return result
 
-    def _decode(self, shortenedUrl, alphabet=ALPHABET):
+    def _decode(self, shortened_url, alphabet=ALPHABET):
         """
         Decoded the encoded string to the number.
-        :param shortenedUrl: encoded string
+        :param shortened_url: encoded string
         :param alphabet: decoding base
         :return:
         """
         base = len(alphabet)
-        strlen = len(shortenedUrl)
+        strlen = len(shortened_url)
         result = 0
 
         loc = 0
-        for char in shortenedUrl:
+        for char in shortened_url:
             power = (strlen - (loc + 1))
             result += alphabet.index(char) * (base ** power)
             loc += 1
