@@ -24,25 +24,31 @@ class UrlShortener:
         print(url)
 
         # Check if we already have the mapping in the reverse map.
+
         result = self.check_reverse_map(url)
         if result is not None:
-            print("Result is not None")
-            print(result)
             return result
 
+        # Fall back to the traditional
         self.lock.acquire()
         try:
             print('Lock Acquired')
+
+            self.map[len(self.map)] = url
             length = len(self.map)
-            self.map[length] = url
+
             print('Map Updated with the resource.')
 
         finally:
             print('Going to release the lock')
             self.lock.release()
 
-        result = self._encode(len(self.map)-1)
-        self.store_reverse_map(url, result)
+        # No access to the shared data structure outside the block.
+        # Do not perform encoding the block as it might be an expensive operation and therefore time consuming.
+
+        result = self._encode(length - 1)
+        self.store_reverse_map(url, result)     # Inform the reverse map about the new mapping.
+
         return result
 
     def _encode(self, num, alphabet=ALPHABET):
