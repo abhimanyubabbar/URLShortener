@@ -60,5 +60,27 @@ class TestShorten(unittest.TestCase):
         actual_output = TestShorten.shortener._decode(test_input)
         self.assertEqual(expected_output, actual_output, "Base62 decoding test.")
 
+    def test_reverse_map_unknown_url(self):
+
+        print('Testing reverse map with a unknown entry fetch.')
+        test_url = 'https://www.google.com'
+
+        expected_result = None
+        result = TestShorten.shortener.check_reverse_map(test_url)
+
+        self.assertEqual(expected_result, result, "Testing a unknown url fetch from reverse map.")
+
+    def test_reverse_map_fetch(self):
+
+        print('Testing the reverse map fetch with already present entry.')
+        test_url = "http://google.com"
+
+        expected_result = "0"
+        TestShorten.shortener.shorten_url(test_url)
+
+        result = TestShorten.shortener.check_reverse_map(test_url)
+        self.assertEqual(expected_result, result, "Reverse map fetch test.")
+
+
 if __name__ == '__main__':
     unittest.main()
