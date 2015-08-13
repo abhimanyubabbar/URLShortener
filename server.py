@@ -18,7 +18,7 @@ def index():
 def encode():
     print('Received a call to encode.')
     print(request.json)
-    url = shortener.shortenUrl(request.json['url'])
+    url = shortener.shorten_url(request.json['url'])
     print('Shortened Url:' + url)
     return jsonify({'url': url}), 201
 
@@ -26,13 +26,13 @@ def encode():
 @app.route('/<string:encoded>', methods=['GET'])
 def decode(encoded):
     print('Received a call to decode string : ' + encoded)
-    originalUrl = shortener.originalUrl(encoded)
+    original_url = shortener.original_url(encoded)
 
-    if originalUrl == '':
+    if original_url == '':
         return abort(404)
 
-    print("Original Url:" + originalUrl)
-    return redirect(originalUrl, code=301)
+    print("Original Url:" + original_url)
+    return redirect(original_url, code=301)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
