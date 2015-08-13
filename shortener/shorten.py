@@ -1,5 +1,6 @@
 __author__ = 'babbarshaer'
 
+import threading
 
 class UrlShortener:
     """
@@ -10,6 +11,7 @@ class UrlShortener:
 
     def __init__(self):
         self.map = dict()
+        self.lock = threading.Lock()    # Get a lock instance
 
     def shorten_url(self, url):
         """
@@ -18,7 +20,16 @@ class UrlShortener:
         :return: shortened url
         """
         print(url)
-        self.map[len(self.map)] = url
+        self.lock.acquire()
+        try:
+            print('Lock Acquired')
+            self.map[len(self.map)] = url
+            print('Map Updated with the resource.')
+
+        finally:
+            print('Going to release the lock')
+            self.lock.release()
+
         return self._encode(len(self.map)-1)
 
     def _encode(self, num, alphabet=ALPHABET):
