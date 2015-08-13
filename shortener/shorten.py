@@ -141,7 +141,6 @@ class UrlShortener:
         self.lock.acquire()
         try:
             print("Lock acquired")
-            time.sleep(10)
             result = len(self.map)
             self.map[result] = url
 
