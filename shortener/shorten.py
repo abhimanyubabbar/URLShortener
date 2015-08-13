@@ -11,7 +11,7 @@ class UrlShortener:
     ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def __init__(self):
-        self.map = dict()
+        self.map = dict()               # Main storage for the mapping between the key and the original url.
         self.reverse_map = dict()       # Create a reverse map, for holding the other resources.
         self.lock = threading.Lock()    # Get a lock instance
 
@@ -27,6 +27,7 @@ class UrlShortener:
 
         result = self.check_reverse_map(url)
         if result is not None:
+            print("Entry already present in the reverse map.")
             return result
 
         # Fall back to the original conversion in case a link is not located.
@@ -34,6 +35,12 @@ class UrlShortener:
 
         location = self.store_and_get_location(url)     # The function in itself is thread safe.
         result = self._encode(location)
+
+        # Below method is another point of potential race condition
+        # but at this point we are not concerned with it because in case we were unlucky to receive the
+        # request to map same url concurrently, so the main map will contain two mappings but here in the reverse map
+        # we just let the last one override the first one and give the same one out from next time same url is
+        # requested to be shortened.
 
         self.store_reverse_map(url, result)     # Inform the reverse map about the new mapping.
 
