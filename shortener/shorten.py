@@ -22,6 +22,14 @@ class UrlShortener:
         :return: shortened url
         """
         print(url)
+
+        # Check if we already have the mapping in the reverse map.
+        result = self.check_reverse_map(url)
+        if result is not None:
+            print("Result is not None")
+            print(result)
+            return result
+
         self.lock.acquire()
         try:
             print('Lock Acquired')
@@ -33,7 +41,9 @@ class UrlShortener:
             print('Going to release the lock')
             self.lock.release()
 
-        return self._encode(len(self.map)-1)
+        result = self._encode(len(self.map)-1)
+        self.store_reverse_map(url, result)
+        return result
 
     def _encode(self, num, alphabet=ALPHABET):
         """
@@ -86,6 +96,28 @@ class UrlShortener:
             result += alphabet.index(char) * (base ** power)
             loc += 1
         return result
+
+    def check_reverse_map(self, long_url):
+        """
+        In order to prevent url abuse where the user can create multiple
+        shortened urls from a single url, we create a reverse mapping in which we store
+        a mapping of (long_url, shortened_url)
+        :return: shortened_url | None
+        """
+
+        result = self.reverse_map.get(long_url)
+        return result
+
+    def store_reverse_map(self, long_url, shortened_url):
+        """
+        Store the reverse mapping. Used mainly in preventing the
+        abuse of the short urls in case different users start shortening the same
+        url.
+        :param long_url:
+        :param shortened_url:
+        :return:
+        """
+        self.reverse_map[long_url] = shortened_url
 
     def print_map(self):
         """
