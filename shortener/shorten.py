@@ -3,6 +3,7 @@ __author__ = 'babbarshaer'
 import threading
 import time
 
+
 class UrlShortener:
     """
     Original Url => Shortened Url | Shortened Url => Original Url
