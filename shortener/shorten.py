@@ -11,7 +11,7 @@ class UrlShortener:
     def __init__(self):
         self.map = dict()
 
-    def shortenUrl(self, url):
+    def shorten_url(self, url):
         """
         The function based on the url passed, creates a shortened url.
         :param url: url to be shortened.
@@ -38,7 +38,7 @@ class UrlShortener:
         arr.reverse()
         return ''.join(arr)
 
-    def originalUrl(self, shortened_url):
+    def original_url(self, shortened_url):
         """
         Get the original url stored based on the shortened url provided.
         :param shortened_url: shortUrl
