@@ -1,6 +1,7 @@
 __author__ = 'babbarshaer'
 
 import threading
+import time
 
 class UrlShortener:
     """
@@ -11,6 +12,7 @@ class UrlShortener:
 
     def __init__(self):
         self.map = dict()
+        self.reverse_map = dict()       # Create a reverse map, for holding the other resources.
         self.lock = threading.Lock()    # Get a lock instance
 
     def shorten_url(self, url):
@@ -23,7 +25,8 @@ class UrlShortener:
         self.lock.acquire()
         try:
             print('Lock Acquired')
-            self.map[len(self.map)] = url
+            length = len(self.map)
+            self.map[length] = url
             print('Map Updated with the resource.')
 
         finally:
@@ -68,7 +71,7 @@ class UrlShortener:
 
     def _decode(self, shortened_url, alphabet=ALPHABET):
         """
-        Decoded the encoded string to the number.
+        Decoded the encoded string tself.get_length()o the number.
         :param shortened_url: encoded string
         :param alphabet: decoding base
         :return:
@@ -83,3 +86,14 @@ class UrlShortener:
             result += alphabet.index(char) * (base ** power)
             loc += 1
         return result
+
+    def print_map(self):
+        """
+        Simply print the information about the stored map.
+        :return:
+        """
+        print('Going to print map size.')
+        print(self.map)
+
+    def get_length(self):
+        return len(self.map)
