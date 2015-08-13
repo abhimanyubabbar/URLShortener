@@ -29,24 +29,12 @@ class UrlShortener:
         if result is not None:
             return result
 
-        # Fall back to the traditional
-        self.lock.acquire()
-        try:
-            print('Lock Acquired')
+        # Fall back to the original conversion in case a link is not located.
+        # Extract the code having race condition potential in a separate method.
 
-            self.map[len(self.map)] = url
-            length = len(self.map)
+        location = self.store_and_get_location(url)     # The function in itself is thread safe.
+        result = self._encode(location)
 
-            print('Map Updated with the resource.')
-
-        finally:
-            print('Going to release the lock')
-            self.lock.release()
-
-        # No access to the shared data structure outside the block.
-        # Do not perform encoding the block as it might be an expensive operation and therefore time consuming.
-
-        result = self._encode(length - 1)
         self.store_reverse_map(url, result)     # Inform the reverse map about the new mapping.
 
         return result
@@ -134,4 +122,31 @@ class UrlShortener:
         print(self.map)
 
     def get_length(self):
+        """
+        Simply return the length of the map.
+        :return: map length
+        """
         return len(self.map)
+
+    def store_and_get_location(self, url):
+        """
+        Convenience method for creating the location in the main
+        hash table in which the url will be stored.
+
+        :param url: url to be stored
+        :return: location of url in table
+        """
+        print("Going to determine the location for url: " + url)
+
+        self.lock.acquire()
+        try:
+            print("Lock acquired")
+            time.sleep(10)
+            result = len(self.map)
+            self.map[result] = url
+
+        finally:
+            print("Going to release the lock")
+            self.lock.release()
+
+        return result
